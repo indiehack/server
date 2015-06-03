@@ -2,6 +2,12 @@
 
 Cookbook and a vagrant file to run your node server environment.
 
+## Prerequisities
+
+- [VirtualBox](https://www.virtualbox.org/)
+- [Vagrant](https://www.vagrantup.com/)
+- [Chef-DK](https://downloads.chef.io/chef-dk/)
+
 ## Supported Platforms
 
 TODO: List your supported platforms.
