@@ -1,0 +1,10 @@
+name             'indiehack'
+maintainer       'mojzis'
+maintainer_email 'stupka@cngroup.dk'
+license          'All rights reserved'
+description      'Installs/Configures indiehack'
+long_description 'Installs/Configures indiehack'
+version          '0.1.0'
+
+depends 'nodejs'
+depends 'mongodb'
