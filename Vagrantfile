@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.require_version '>= 1.5.0'
 
 # install needed plugins
-['vagrant-triggers', 'vagrant-omnibus'].each do |plugin| 
+['vagrant-triggers', 'vagrant-omnibus', 'vagrant-hostsupdater'].each do |plugin| 
   unless Vagrant.has_plugin?(plugin)
     system('vagrant plugin install '+ plugin) || exit!
     exit system('vagrant', *ARGV)
@@ -34,6 +34,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     run "berks vendor #{cookbooks_path}"
   end
 
+  config.vm.synced_folder "../back", "/var/back"
+  config.vm.synced_folder "../front", "/var/front"
+
   # Workaround for https://github.com/mitchellh/vagrant/issues/5199
   config.trigger.before [:reload, :up ], stdout: true do
     my_SYNCED_FOLDER = ".vagrant/machines/default/virtualbox/synced_folders"
@@ -41,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     begin
         File.delete(my_SYNCED_FOLDER)
     rescue StandardError => e
-        warn "Could not delete folder #{my_SYNCED_FOLDER}."
+        warn "Could not delete folder #{my_SYNCED_FOLDER}. Nevermind :)"
         warn e.inspect
     end
   end
@@ -51,7 +54,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # via the IP. Host-only networks can talk to the host machine as well as
   # any other machines on the same network, but cannot be accessed (through this
   # network interface) by any external networks.
-  config.vm.network :private_network, type: 'dhcp'
+  #config.vm.network :private_network, type: 'dhcp'
+  config.vm.network :private_network, ip: '192.168.44.44'
+
+  if Vagrant.has_plugin?("vagrant-hostsupdater")
+    #config.vm.hostname = "inha"
+    config.hostsupdater.aliases = ['mongo.inha']
+  end
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
