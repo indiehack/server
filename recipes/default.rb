@@ -40,3 +40,10 @@ bash 'set-hostname' do
 	user 'root'
 	code "hostnamectl set-hostname inha"
 end
+
+template "/home/vagrant/.bash_profile" do
+  source "bash_profile.erb"
+  owner "vagrant"
+  group "vagrant"
+  mode "0700"
+end
