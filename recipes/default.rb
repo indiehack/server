@@ -11,6 +11,14 @@ package 'gcc'
 package 'make'
 package 'build-essential'
 package 'mongodb'
+
+package 'xorg'
+package 'openbox'
+package 'virtualbox-guest-dkms'
+package 'geany'
+package 'git'
+
+
 #package 'apache2'
 
 include_recipe "nodejs::iojs"

@@ -78,7 +78,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
-    # vb.gui = true
+    vb.gui = true
   
     # more RAM #todo: move this to local config
     vb.customize ["modifyvm", :id, "--memory", "2048"]
